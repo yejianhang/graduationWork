@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--客户映射 指定到dao接口 -->
+<mapper namespace="cn.ssm.vo.file.mapper">
+<!--id与dao接口的方法名一直，指定结果类型，和参数类型 -->
+	<select id="listFileById" resultType="file" parameterType="int">
+		select * from filecenter where upload_id=#{upload_id}
+	</select>
+	<insert id="uploadFile" parameterType="file"> 
+		insert into filecenter(file_name,file_src,upload_id,file_ispic,file_uptime) values (#{file_name},#{file_src},#{upload_id},#{file_ispic},#{file_uptime}) 
+	</insert>
+	<!--查询图片文件 -->
+	<select id="findPicByid"  resultType="file" parameterType="int">
+		select * from filecenter where file_ispic=1 and  upload_id=#{upload_id}
+	</select>
+	<!--查询文档文件 -->
+	<select id="findNotPicByid"  resultType="file" parameterType="int">
+		select * from filecenter where file_ispic=0 and  upload_id=#{upload_id}
+	</select>
+	<delete id="CoachdeleteFile" parameterType="file">
+		delete from filecenter where upload_id=#{upload_id} and fileID=#{fileID}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--客户映射 指定到dao接口 -->
+<mapper namespace="cn.ssm.vo.quesAndAns.mapper">
+<!--id与dao接口的方法名一直，指定结果类型，和参数类型 -->
+	<select id="list" resultType="quesAndAns">
+		select q.*,u.user_name,u.user_picsrc from question q,user u where q.q_rise_id=u.user_id
+	</select>
+	<select id="ShowquesAndAns" resultType="quesAndAns" parameterType="int">
+		select q.*,a.*,u.user_name,u.user_picsrc from question q,answer a,user u where q.q_id=a.ans_id and  a.ans_solve_id=u.user_id and q.q_id=#{q_id} 
+	</select>
+	<select id="Showques" resultType="quesAndAns" parameterType="int">
+		select * from question where q_id=#{q_id}
+	</select>
+	<select id="selectIsResolve" resultType="int" parameterType="int">
+		select q_isResolve from question where q_id=#{q_id}
+	</select>
+	<select id="countAll" resultType="int">
+		select count(1) from question 
+	</select>
+	<select id="countUnsolved" resultType="int">
+		select count(1) from question  where q_isResolve=0
+	</select>
+	
+	<insert id="RiseQuestion" parameterType="quesAndAns">  
+  		INSERT  into question(q_rise_id,q_rise_time,q_title,q_isResolve,q_text,q_looked_num)  VALUES (#{q_rise_id},#{q_rise_time},#{q_title},#{q_isResolve},#{q_text},0)  
+   	</insert> 
+   	<insert id="RiseAns" parameterType="quesAndAns">  
+  		INSERT  into answer(ans_id,ans_text,ans_time,ans_solve_id)  VALUES (#{ans_id},#{ans_text},#{ans_time},#{ans_solve_id})  
+   	</insert>
+   	<!--查看问题 访问量＋1  -->
+   	<update id="updatePageView" parameterType="int">
+   		UPDATE question set q_looked_num=q_looked_num+1 where q_id=#{q_id}
+   	</update>
+   	<update id="updateQueStatus" parameterType="int" >  
+        UPDATE  question SET q_isResolve=1 where q_id=#{q_id}
+  	</update> 
+    <delete id="deleteQuesAndAns" parameterType="int">  
+  		DELETE  FROM question q ,answer a  WHERE q.q_id=a.ans_id and q.q_id=#{q_id}  
+    </delete>  
+   
+    
+</mapper>

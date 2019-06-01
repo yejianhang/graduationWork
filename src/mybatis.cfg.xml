@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<package name="cn.ssm.vo"/>
+	</typeAliases>
+	<mappers>
+	<!-- 所以mapper文件填写位置 -->
+	<mapper resource="cn/ssm/vo/User.mapper.xml"/>
+	<mapper resource="cn/ssm/vo/course.mapper.xml"/>
+	<mapper resource="cn/ssm/vo/coach.mapper.xml"/>
+	<mapper resource="cn/ssm/vo/courseAndcoach.mapper.xml"/>
+	<mapper resource="cn/ssm/vo/UserBookCourse.mapper.xml"/>
+	<mapper resource="cn/ssm/vo/UserBodyMeas.mapper.xml"/>
+	<mapper resource="cn/ssm/vo/UserBookCoach.mapper.xml"/>
+	<mapper resource="cn/ssm/vo/Message.mapper.xml"/>
+	<mapper resource="cn/ssm/vo/quesAndAns.mapper.xml"/>
+	<mapper resource="cn/ssm/vo/file.mapper.xml"/>
+	<mapper resource="cn/ssm/vo/payedOrder.mapper.xml"/>
+	<mapper resource="cn/ssm/vo/tech.mapper.xml"/>
+	<mapper resource="cn/ssm/vo/CourseAssess.mapper.xml"/>
+	<mapper resource="cn/ssm/vo/palace.mapper.xml"/>
+	</mappers>
+	
+</configuration>

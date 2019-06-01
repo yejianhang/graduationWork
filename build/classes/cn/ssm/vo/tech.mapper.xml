@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--客户映射 指定到dao接口 -->
+<mapper namespace="cn.ssm.vo.tech.mapper">
+<!--id与dao接口的方法名一直，指定结果类型，和参数类型 -->
+	<select id="list" resultType="tech">
+		select * from tech t ,coach h ,course e,gym_palace g where t.course_id=e.course_id and t.coach_id=h.coach_id and t.tech_palace=g.palace_id
+	</select>
+	<select id="ShowTechByID" resultType="tech" parameterType="int">
+		select * from tech t ,coach h ,course e,gym_palace g  where t.course_id=e.course_id and t.coach_id=h.coach_id and t.tech_palace=g.palace_id and t.tech_id=#{tech_id}
+	</select>
+	<update id="bookCourse"  parameterType="int">
+		update tech set tech_num_now=tech_num_now+1 where tech_id=#{tech_id}
+	</update>
+	<update id="deleteBook"  parameterType="int">
+		update tech set tech_num_now=tech_num_now-1 where tech_id=#{tech_id}
+	</update>
+	<select id="ShowCourseIDByTechID" resultType="int" parameterType="int">
+		select t.course_id from tech t where t.tech_id=#{tech_id}
+	</select>
+	<!--查看课程历史记录 -->
+	<select id="ShowCourseHis" resultType="tech" parameterType="int">
+		select * from tech t,coach c where t.coach_id=c.coach_id and t.course_id=#{course_id}
+	</select>
+	<!--根据课程名称搜索 -->
+	<select id="ShowTechByName" resultType="tech" parameterType="String">
+		select * from tech t,coach h,course c where t.coach_id=h.coach_id and t.course_id=c.course_id and c.course_name=#{course_name}
+	</select>
+	<!--查询同一时间段内课程信息 -->
+	<select id="ShowTechByTime" resultType="tech" parameterType="String">
+		select * from tech t where t.tech_time=#{tech_time}
+	</select>
+	<insert id="InSertTech" parameterType="tech">
+		insert into tech(course_id,coach_id,tech_time,tech_num,tech_num_now,tech_palace,tech_create_time) values(#{course_id},#{coach_id},#{tech_time},#{tech_num},0,#{tech_palace},#{tech_create_time})
+	</insert>
+	<!--删除课程 -->
+	<delete id="deleteTech" parameterType="int">
+		delete from tech where tech_id=#{tech_id}
+	</delete>
+	<!-- 更新课程 -->
+	<update id="updateTech" parameterType="tech">
+		update tech SET course_id=#{course_id},coach_id=#{coach_id},tech_time=#{tech_time},tech_num=#{tech_num}
+		,tech_palace=#{tech_palace} where tech_id=#{tech_id}  
+	</update>
+</mapper>

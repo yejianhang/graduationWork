@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--客户映射 指定到dao接口 -->
+<mapper namespace="cn.ssm.vo.UserBookCoach.mapper">
+<!--id与dao接口的方法名一直，指定结果类型，和参数类型 -->
+	<select id="FindBookCoachByid" parameterType="int" resultType="UserBookCoach">
+		select * from user_bookcoach where user_id=#{user_id}
+	</select>
+	<select id="FindisBookCoachByid" parameterType="int" resultType="int">
+		select count(1) from user_bookcoach where user_id=#{user_id}
+	</select>
+	<select id="FindBookCoachByCoachid" parameterType="int" resultType="User">
+		select a.* from user a ,user_bookcoach b where a.user_id=b.user_id and  b.coach_id=#{coach_id}
+	</select>
+	<select id="FindBookCoachByUserid" parameterType="int" resultType="coach">
+		select a.* from coach a ,user_bookcoach b where a.coach_id=b.coach_id and  b.user_id=#{user_id}
+	</select>
+	<insert id="UserBookCoach" parameterType="UserBookCoach">
+		insert into user_bookcoach(user_id,coach_id) values (#{user_id},#{coach_id})
+	</insert>
+</mapper>

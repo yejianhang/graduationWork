@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--客户映射 指定到dao接口 -->
+<mapper namespace="cn.ssm.vo.UserBodyMeas.mapper">
+<!--id与dao接口的方法名一直，指定结果类型，和参数类型 -->
+	<select id="findById"  parameterType="int"  resultType="UserBodyMeas">
+		select * from user_bodymeas where user_id=#{user_id} 
+	</select>
+	<insert id="InsertMeas"  parameterType="UserBodyMeas" >
+		insert into user_bodymeas (user_id,user_weight,user_height,user_bodyfat,user_bodymeascol,user_basic_meta)
+		values(#{user_id},#{user_weight},#{user_height},#{user_bodyfat},#{user_bodymeascol},#{user_basic_meta})
+	</insert>
+	<update id="updateMeas" parameterType="UserBodyMeas" >
+		update user_bodymeas set user_weight=#{user_weight},user_height=#{user_height},user_bodyfat=#{user_bodyfat},
+		user_basic_meta=#{user_basic_meta},user_bodymeascol=#{user_bodymeascol} where user_id=#{user_id}
+	</update>
+</mapper>

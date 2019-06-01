@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--客户映射 指定到dao接口 -->
+<mapper namespace="cn.ssm.vo.coach.mapper">
+<!--id与dao接口的方法名一直，指定结果类型，和参数类型 -->
+	<select id="FindCoachByid" parameterType="int" resultType="coach">
+		select * from coach where coach_id=#{coach_id}
+	</select>
+	<select id="listCoach"  resultType="coach">
+		select * from coach 
+	</select>
+	<delete id="deleteCoachById" parameterType="int">
+		delete  from coach where coach_id=#{coach_id}
+	</delete>
+	<insert id="insertCoach" parameterType="coach">
+		insert into coach(coach_id,coach_name,coach_text,coach_passwd,coach_picsrc,coach_height,coach_weight,coach_age,coach_quality,coach_maintech,coach_cost,coach_sex)
+		values (#{coach_id},#{coach_name},#{coach_text},#{coach_passwd},#{coach_picsrc},#{coach_height},#{coach_weight},#{coach_age},#{coach_quality},#{coach_maintech},#{coach_cost},#{coach_sex}) 
+	</insert>
+	<update id="updateCoach" parameterType="coach">
+		UPDATE  coach SET coach_name=#{coach_name},coach_text=#{coach_text},coach_height=#{coach_height},
+		coach_weight=#{coach_weight},coach_age=#{coach_age},coach_quality=#{coach_quality}
+		,coach_maintech=#{coach_maintech},coach_cost=#{coach_cost},coach_sex=#{coach_sex} where coach_id=#{coach_id}  
+	</update>
+	<select id="FindMaxCoachId" resultType="int">
+		select max(coach_id) from coach
+	</select>
+	<!-- 修改/上传图片 -->
+	<update id="EditCoachPic" parameterType="coach">
+		UPDATE  coach SET coach_picsrc=#{coach_picsrc} where coach_id=#{coach_id}  
+	</update>
+	<update id="EditCoachPicToDelete" parameterType="coach">
+		UPDATE  coach SET coach_picsrc='unUpload.jpg' where coach_id=#{coach_id}  
+	</update>
+</mapper>
